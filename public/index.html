@@ -26,8 +26,6 @@
       margin: 0 auto;
     }
 
-   
-
     .topbar {
       width: 100%;
       background: #fff;
@@ -53,8 +51,6 @@
       flex: 1;
       text-align: center;
     }
-
-    
 
     .cart-btn {
       position: relative;
@@ -91,8 +87,6 @@
       padding: 0 4px;
       font-weight: 600;
     }
-
-    
 
     .panel {
       background: #fff;
@@ -233,8 +227,6 @@
       padding: 1.5rem 0 2rem;
     }
 
-  
-
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -272,8 +264,6 @@
       color: #fff;
       cursor: pointer;
     }
-
-    
 
     .add-form {
       margin: 1.2rem 0 1.8rem;
@@ -342,12 +332,32 @@
       white-space: nowrap;
     }
 
+    .image-bug-popup {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.28);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 2500;
+     pointer-events: none;
+   }
+
+    .image-bug-popup img {
+      width: 340px;
+      max-width: 82vw;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+   }
+
     .toggle-form-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
-
-    
 
     .cart-modal {
       background: #fff;
@@ -511,7 +521,6 @@
       width: 150px;
     }
 
-   
     body.dark {
       background: #1a1a1a;
       color: #eee;
@@ -543,6 +552,11 @@
       border-color: #555;
     }
 
+    body.dark .list-row {
+      background: #2f2f2f;
+      border-color: #555;
+    }
+
     body.dark .price-low {
       color: #7dd3fc;
     }
@@ -563,8 +577,19 @@
 
     body.dark .btns button,
     body.dark .add-btn,
-    body.dark .toggle-form-btn {
+    body.dark .toggle-form-btn,
+    body.dark .toggle-view-btn,
+    body.dark .qty-controls button,
+    body.dark .close-x,
+    body.dark .pay-btn {
       background: #444;
+      color: #fff;
+    }
+
+    body.dark .modal-content,
+    body.dark .cart-modal,
+    body.dark .modal-content-trap {
+      background: #2b2b2b;
       color: #fff;
     }
 
@@ -608,6 +633,12 @@
       font-weight: bold;
     }
 
+    .error-body {
+      padding: 14px;
+      color: #111;
+      font-size: 0.95rem;
+    }
+
     .close-btn {
       cursor: pointer;
       background: #ccc;
@@ -616,7 +647,6 @@
       border: 1px solid #000;
     }
 
-    
     .escape-x-global {
       position: fixed;
       background: #ff0000;
@@ -636,12 +666,122 @@
       box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
     }
 
+    .image-bug-popup img {
+  width: 700px;
+  max-width: 82vw;
+  max-height: 70vh;
+  object-fit: contain;
+  background: none;
+  padding: 1rem;
+  border-radius: 16px;
+  animation: popBug 0.25s ease, floatBug 3s ease-in-out infinite;
+}
+
+@keyframes popBug {
+  0% {
+    transform: scale(0.6) rotate(-8deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes floatBug {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  25%  { transform: translateY(-6px) rotate(-2deg); }
+  50%  { transform: translateY(0px) rotate(2deg); }
+  75%  { transform: translateY(6px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
     .modal-content-trap {
       background: white;
       padding: 50px;
       border-radius: 15px;
       text-align: center;
       z-index: 1500;
+    }
+
+    .wave-monitor {
+      animation: hospital-wave 1s linear;
+      transform-origin: center center;
+    }
+
+    @keyframes hospital-wave {
+      0% {
+        transform: translateX(0) skewY(0deg) scaleY(1);
+      }
+
+      10% {
+        transform: translateX(-8px) skewY(3deg) scaleY(0.98);
+      }
+
+      20% {
+        transform: translateX(8px) skewY(-4deg) scaleY(1.03);
+      }
+
+      30% {
+        transform: translateX(-12px) skewY(5deg) scaleY(0.96);
+      }
+
+      40% {
+        transform: translateX(12px) skewY(-6deg) scaleY(1.05);
+      }
+
+      50% {
+        transform: translateX(-14px) skewY(6deg) scaleY(0.95);
+      }
+
+      60% {
+        transform: translateX(12px) skewY(-5deg) scaleY(1.04);
+      }
+
+      70% {
+        transform: translateX(-8px) skewY(4deg) scaleY(0.98);
+      }
+
+      80% {
+        transform: translateX(8px) skewY(-3deg) scaleY(1.02);
+      }
+
+      90% {
+        transform: translateX(-4px) skewY(2deg) scaleY(0.99);
+      }
+
+      100% {
+        transform: translateX(0) skewY(0deg) scaleY(1);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .search-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btns {
+        flex-wrap: wrap;
+      }
+
+      .list-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .list-row img {
+        width: 100%;
+        height: 220px;
+      }
+
+      .list-actions {
+        width: 100%;
+      }
+
+      .cart-line {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -651,20 +791,20 @@
     <div class="topbar">
       <img class="logo" src="img/legologo.png" alt="Logo LEGO" />
       <span class="title">Catalogue LEGO</span>
+
       <button class="theme-btn" @click="toggleTheme">
         {{ darkMode ? "🌙" : "☀️" }}
       </button>
+
       <button class="cart-btn" @click="ouvrirPanier">
         <span class="cart-icon">🛒</span>
         <span v-if="totalPanier > 0" class="cart-badge">{{ totalPanier }}</span>
       </button>
-
     </div>
 
     <div class="panel">
       <div
         style="margin-bottom:1rem; display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; justify-content:space-between;">
-
         <div style="display:flex; gap:.75rem; align-items:center; flex-wrap:wrap;">
           <label for="theme-select" style="font-size:.95rem; font-weight:600;">
             Filtrer par thème :
@@ -676,7 +816,6 @@
           </select>
         </div>
 
-      
         <div style="display:flex; gap:.5rem; align-items:center;">
           <label for="tri-prix" style="font-size:.9rem; font-weight:600;">Trier par :</label>
           <select id="tri-prix" v-model="sortPrix"
@@ -690,7 +829,11 @@
 
       <div class="search-row">
         <div class="search-box">
-          <input v-model="recherche" placeholder="Rechercher un set LEGO..." />
+          <input
+            v-model="recherche"
+            @input="declencherOndulation"
+            placeholder="Rechercher un set LEGO..."
+          />
         </div>
 
         <button type="button" class="toggle-form-btn" @click="afficherFormulaire = !afficherFormulaire">
@@ -702,7 +845,6 @@
         </button>
       </div>
 
-      
       <form v-if="afficherFormulaire" class="add-form" @submit.prevent="ajouterProduit">
         <h3>Ajouter un nouveau set LEGO</h3>
 
@@ -751,44 +893,40 @@
         <button type="submit" class="add-btn">Ajouter le produit</button>
       </form>
 
-     
       <div class="grid" v-if="!modeListe">
-
-        <div class="card" v-for="a in articlesFiltres" :key="a.id" @click="carteSelectionnee = a.id"
-          :class="{ out: a.stock===0, selected: carteSelectionnee === a.id }">
-
+        <div
+          class="card"
+          v-for="a in articlesFiltres"
+          :key="a.id"
+          @click="carteSelectionnee (a)"
+          :class="{ out: a.stock === 0, selected: carteSelectionnee === a.id }"
+        >
           <img :src="a.image" :alt="a.nom">
 
           <div class="title-product">{{ a.nom }}</div>
-          <div class="theme">{{ a.theme }} • réf. {{ a.ref }} • {{ a.pieces }} pièces </div>
+          <div class="theme">{{ a.theme }} • réf. {{ a.ref }} • {{ a.pieces }} pièces</div>
           <div class="desc">{{ a.description }}</div>
 
-          <span class="stock" :class="a.stock>0?'ok':'ko'">
+          <span class="stock" :class="a.stock>0 ? 'ok' : 'ko'">
             <span v-if="a.stock>0">Stock : {{ a.stock }}</span>
             <span v-else>Rupture de stock</span>
           </span>
 
-          <div class="price" :class="a.prix > 100 ? 'price-high' : 'price-low'"> 
+          <div class="price" :class="a.prix > 100 ? 'price-high' : 'price-low'">
             {{ a.prix.toFixed(2) }} €
           </div>
 
           <div class="btns">
             <button @click.stop="voirDetails(a)">Détails</button>
             <button @click="ajouter(a)" :disabled="a.stock===0">Ajouter</button>
-            <button class="edit" @click.stop="ouvrirEdition(a)">Modifier</button>
+            <button class="edit" @click.stop="ouvrirEdition(a); selectionnerCarte(a)">Modifier</button>
             <button class="del" @click="supprimer(a.id)">Supprimer</button>
           </div>
-
         </div>
-
       </div>
 
-
-      
       <div class="list-container" v-else>
-
         <div class="list-row" v-for="a in articlesFiltres" :key="a.id" :class="{ out: a.stock===0 }">
-
           <img :src="a.image" :alt="a.nom">
 
           <div class="list-info">
@@ -811,11 +949,9 @@
             <button @click="ajouter(a)" :disabled="a.stock===0">Ajouter</button>
             <button class="del" @click="supprimer(a.id)">Supprimer</button>
           </div>
-
         </div>
-
       </div>
-     
+
       <div v-if="selectedArticle" class="modal-backdrop">
         <div class="modal-content">
           <h2>{{ selectedArticle.nom }}</h2>
@@ -837,7 +973,6 @@
       </div>
     </div>
 
-  
     <div v-if="produitEnEdition" class="modal-backdrop">
       <div class="modal-content">
         <h2>Modifier le produit</h2>
@@ -847,7 +982,7 @@
 
         <label>Thème :</label>
         <select v-model="produitEnEdition.theme">
-          <option v-for="t in themes" :value="t">{{ t }}</option>
+          <option v-for="t in themes" :key="t" :value="t">{{ t }}</option>
         </select>
 
         <label>Référence :</label>
@@ -873,8 +1008,6 @@
       </div>
     </div>
 
-
-   
     <div v-if="panierOuvert" class="modal-backdrop" @click.self="fermerPanier">
       <div class="cart-modal">
         <div class="cart-header">
@@ -905,14 +1038,18 @@
             <span>{{ totalMontantPanier.toFixed(2) }} €</span>
           </div>
 
-          <button class="pay-btn">Payer </button>
+          <button class="pay-btn">Payer</button>
         </div>
       </div>
     </div>
 
     <div v-if="bugMode">
-      <div v-for="(err, index) in errorWindows" :key="err.id" class="fake-error-window large"
-        :style="{ top: err.top + 'px', left: err.left + 'px' }">
+      <div
+        v-for="(err, index) in errorWindows"
+        :key="err.id"
+        class="fake-error-window large"
+        :style="{ top: err.top + 'px', left: err.left + 'px' }"
+      >
         <div class="error-header">
           <span>Système - Erreur Critique</span>
           <span class="close-btn" @click="fermerErreur(index)">×</span>
@@ -923,8 +1060,11 @@
         </div>
       </div>
 
-      <button class="escape-x-global" :style="{ top: closeXPosition.y + 'px', left: closeXPosition.x + 'px' }"
-        @mouseenter="bougerCroix">
+      <button
+        class="escape-x-global"
+        :style="{ top: closeXPosition.y + 'px', left: closeXPosition.x + 'px' }"
+        @mouseenter="bougerCroix"
+      >
         ×
       </button>
 
@@ -937,9 +1077,11 @@
       </div>
     </div>
 
-  </div>
+    <div v-if="imageBugVisible" class="image-bug-popup">
+     <img :src="imageBugSrc" alt="">
+    </div>
 
-  <p class="footer">&copy; {{ EPSI SN2 2025 }} • LEGO</p>
+    <p class="footer">&copy; {{ anneeCourante }} • LEGO</p>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -959,8 +1101,11 @@
           modeListe: false,
           sortPrix: "none",
           darkMode: false,
+          imageBugVisible: false,
+          imageBugSrc: "",
           carteSelectionnee: null,
-          produitEnEdition: null,
+          typedKeys: "",
+          triggerWord: "lego",
           nouveauProduit: {
             nom: "",
             theme: "Animaux",
@@ -972,739 +1117,70 @@
             image: ""
           },
           articles: [
-            {
-              id: 1,
-              nom: "L'Aquarium",
-              theme: "Animaux",
-              ref: "10366",
-              pieces: "4154",
-              description: "L’aquarium tropical, un monde sous-marin plein de vie et de couleurs éclatantes.",
-              prix: 449.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/aquarium.webp"
-            },
-            {
-              id: 2,
-              nom: "Le Chat",
-              theme: "Animaux",
-              ref: "21349",
-              pieces: "1710",
-              description: "Le chat bicolore ajoutera une touche féline à votre intérieur.",
-              prix: 99.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/animaux/chat.webp"
-            },
-            {
-              id: 3,
-              nom: "Le Cheval",
-              theme: "Animaux",
-              ref: "31166",
-              pieces: "685",
-              description: "Venez vivre une aventure créative et intuitive dans le monde équestre.",
-              prix: 49.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/cheval.webp"
-            },
-            {
-              id: 4,
-              nom: "Le Crocodile",
-              theme: "Animaux",
-              ref: "31121",
-              pieces: "454",
-              description: "Les enfants vont adorer vivre des aventures amusantes sur le bord de la rivière.",
-              prix: 45.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/animaux/crocodile.webp"
-            },
-            {
-              id: 5,
-              nom: "Le Flamant rose",
-              theme: "Animaux",
-              ref: "31170",
-              pieces: "288",
-              description: "Faites plaisir aux filles et aux garçons passionnés d’animaux avec ce flamant rose sauvage",
-              prix: 24.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/flamantrose.webp"
-            },
-            {
-              id: 6,
-              nom: "Le Lapin",
-              theme: "Animaux",
-              ref: "31162",
-              pieces: "326",
-              description: "L'adorable lapin, son tournesol et sa carotte",
-              prix: 19.99,
-              stock: 10,
-              quantite: 0,
-              image: "img/animaux/lapin.webp"
-            },
-            {
-              id: 7,
-              nom: "L'Oiseau",
-              theme: "Animaux",
-              ref: "10331",
-              pieces: "834",
-              description: "Ce modèle de martin-pêcheur représente l’oiseau, connu pour son plumage éclatant et ses incroyables aptitudes pour la chasse.",
-              prix: 49.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/animaux/oiseau.webp"
-            },
-            {
-              id: 8,
-              nom: "La famille Panda",
-              theme: "Animaux",
-              ref: "31165",
-              pieces: "620",
-              description: "En figurine ou en jouet, les enfants seront ravis de construire et reconstruire ces modèles qui alimentent leurs plus grandes passions.",
-              prix: 39.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/animaux/panda.webp"
-            },
-            {
-              id: 9,
-              nom: "La Panda roux",
-              theme: "Animaux",
-              ref: "40798",
-              pieces: "121",
-              description: "Les fans s’amuseront à construire la figurine de l’animal avant de découvrir ses pattes repliables et ses oreilles mobiles.",
-              prix: 9.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/pandaroux.webp"
-            },
-            {
-              id: 10,
-              nom: "La Paon",
-              theme: "Animaux",
-              ref: "31157",
-              pieces: "355",
-              description: "Un paon doté d’une queue aux magnifiques plumes détaillée",
-              prix: 19.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/paon.webp"
-            },
-            {
-              id: 11,
-              nom: "Le Perroquet",
-              theme: "Animaux",
-              ref: "31136",
-              pieces: "254",
-              description: "Un paon doté d’une queue aux magnifiques plumes détaillée",
-              prix: 24.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/animaux/perroquet.webp"
-            },
-            {
-              id: 12,
-              nom: "Le Pingouin",
-              theme: "Animaux",
-              ref: "40498",
-              pieces: "244",
-              description: "Un petit pingouin de Noël adorable à exposer fièrement.",
-              prix: 24.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/animaux/pingouin.webp"
-            },
-            {
-              id: 13,
-              nom: "Le Rhinoceros",
-              theme: "Animaux",
-              ref: "31171",
-              pieces: "780",
-              description: "Un rhinocéros robuste pour des scènes sauvages réalistes.",
-              prix: 59.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/rhinoceros.webp"
-            },
-            {
-              id: 14,
-              nom: "Le Tigre",
-              theme: "Animaux",
-              ref: "31129",
-              pieces: "755",
-              description: "Un tigre féroce prêt à rugir dans votre collection.",
-              prix: 49.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/animaux/tigre.webp"
-            },
-            {
-              id: 15,
-              nom: "Le Toucan",
-              theme: "Animaux",
-              ref: "31173",
-              pieces: "225",
-              description: "Un toucan coloré qui apporte une touche tropicale vive",
-              prix: 14.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/animaux/toucan.webp"
-            },
+            { id: 1, nom: "L'Aquarium", theme: "Animaux", ref: "10366", pieces: "4154", description: "L’aquarium tropical, un monde sous-marin plein de vie et de couleurs éclatantes.", prix: 449.99, stock: 3, quantite: 0, image: "img/animaux/aquarium.webp" },
+            { id: 2, nom: "Le Chat", theme: "Animaux", ref: "21349", pieces: "1710", description: "Le chat bicolore ajoutera une touche féline à votre intérieur.", prix: 99.99, stock: 5, quantite: 0, image: "img/animaux/chat.webp" },
+            { id: 3, nom: "Le Cheval", theme: "Animaux", ref: "31166", pieces: "685", description: "Venez vivre une aventure créative et intuitive dans le monde équestre.", prix: 49.99, stock: 3, quantite: 0, image: "img/animaux/cheval.webp" },
+            { id: 4, nom: "Le Crocodile", theme: "Animaux", ref: "31121", pieces: "454", description: "Les enfants vont adorer vivre des aventures amusantes sur le bord de la rivière.", prix: 45.99, stock: 0, quantite: 0, image: "img/animaux/crocodile.webp" },
+            { id: 5, nom: "Le Flamant rose", theme: "Animaux", ref: "31170", pieces: "288", description: "Faites plaisir aux filles et aux garçons passionnés d’animaux avec ce flamant rose sauvage", prix: 24.99, stock: 3, quantite: 0, image: "img/animaux/flamantrose.webp" },
+            { id: 6, nom: "Le Lapin", theme: "Animaux", ref: "31162", pieces: "326", description: "L'adorable lapin, son tournesol et sa carotte", prix: 19.99, stock: 10, quantite: 0, image: "img/animaux/lapin.webp" },
+            { id: 7, nom: "L'Oiseau", theme: "Animaux", ref: "10331", pieces: "834", description: "Ce modèle de martin-pêcheur représente l’oiseau, connu pour son plumage éclatant et ses incroyables aptitudes pour la chasse.", prix: 49.99, stock: 5, quantite: 0, image: "img/animaux/oiseau.webp" },
+            { id: 8, nom: "La famille Panda", theme: "Animaux", ref: "31165", pieces: "620", description: "En figurine ou en jouet, les enfants seront ravis de construire et reconstruire ces modèles qui alimentent leurs plus grandes passions.", prix: 39.99, stock: 5, quantite: 0, image: "img/animaux/panda.webp" },
+            { id: 9, nom: "La Panda roux", theme: "Animaux", ref: "40798", pieces: "121", description: "Les fans s’amuseront à construire la figurine de l’animal avant de découvrir ses pattes repliables et ses oreilles mobiles.", prix: 9.99, stock: 3, quantite: 0, image: "img/animaux/pandaroux.webp" },
+            { id: 10, nom: "La Paon", theme: "Animaux", ref: "31157", pieces: "355", description: "Un paon doté d’une queue aux magnifiques plumes détaillée", prix: 19.99, stock: 3, quantite: 0, image: "img/animaux/paon.webp" },
+            { id: 11, nom: "Le Perroquet", theme: "Animaux", ref: "31136", pieces: "254", description: "Un paon doté d’une queue aux magnifiques plumes détaillée", prix: 24.99, stock: 5, quantite: 0, image: "img/animaux/perroquet.webp" },
+            { id: 12, nom: "Le Pingouin", theme: "Animaux", ref: "40498", pieces: "244", description: "Un petit pingouin de Noël adorable à exposer fièrement.", prix: 24.99, stock: 0, quantite: 0, image: "img/animaux/pingouin.webp" },
+            { id: 13, nom: "Le Rhinoceros", theme: "Animaux", ref: "31171", pieces: "780", description: "Un rhinocéros robuste pour des scènes sauvages réalistes.", prix: 59.99, stock: 3, quantite: 0, image: "img/animaux/rhinoceros.webp" },
+            { id: 14, nom: "Le Tigre", theme: "Animaux", ref: "31129", pieces: "755", description: "Un tigre féroce prêt à rugir dans votre collection.", prix: 49.99, stock: 5, quantite: 0, image: "img/animaux/tigre.webp" },
+            { id: 15, nom: "Le Toucan", theme: "Animaux", ref: "31173", pieces: "225", description: "Un toucan coloré qui apporte une touche tropicale vive", prix: 14.99, stock: 3, quantite: 0, image: "img/animaux/toucan.webp" },
 
+            { id: 16, nom: "Angel", theme: "Disney", ref: "43257", pieces: "784", description: "Angel est un superbe cadeau à offrir aux fans de Disney, amateurs de Lilo et Stitch.", prix: 64.99, stock: 3, quantite: 0, image: "img/disney/angel.webp" },
+            { id: 17, nom: "Ariel et Ursula", theme: "Disney", ref: "41623", pieces: "361", description: "Une scène sous-marine entre la sirène et la sorcière des mers.", prix: 15.99, stock: 0, quantite: 0, image: "img/disney/arielursula.webp" },
+            { id: 18, nom: "Belle", theme: "Disney", ref: "41595", pieces: "139", description: "La princesse rêveuse au charme intemporel.", prix: 14.99, stock: 0, quantite: 0, image: "img/disney/belle.webp" },
+            { id: 19, nom: "Buzz l'éclair", theme: "Disney", ref: "40552", pieces: "114", description: "Un ranger de l’espace prêt pour l’aventure.", prix: 8.99, stock: 0, quantite: 0, image: "img/disney/buzzleclair.webp" },
+            { id: 20, nom: "Cars", theme: "Disney", ref: "77255", pieces: "270", description: "Flash McQueen, un bolide emblématique pour foncer vers l’amusement.", prix: 27.99, stock: 3, quantite: 0, image: "img/disney/cars.webp" },
+            { id: 21, nom: "Cruella et Maléfique", theme: "Disney", ref: "40620", pieces: "320", description: "Deux méchantes iconiques réunies dans un set captivant.", prix: 13.99, stock: 0, quantite: 0, image: "img/disney/cruellamalefique.webp" },
+            { id: 22, nom: "Le chiot 101 Dalmatiens", theme: "Disney", ref: "43269", pieces: "1722", description: "Offrez-vous un adorable objet décoratif avec le set Le Chiot des 101 Dalmatiens.", prix: 139.99, stock: 3, quantite: 0, image: "img/disney/dalmatien.webp" },
+            { id: 23, nom: "Dumbo", theme: "Disney", ref: "40792", pieces: "176", description: "L’éléphant volant au cœur immense.", prix: 9.99, stock: 3, quantite: 0, image: "img/disney/dumbo.webp" },
+            { id: 24, nom: "HeiHei", theme: "Disney", ref: "43272", pieces: "566", description: "Le poulet farfelu du monde de Vaiana qui apporte une touche humoristique.", prix: 39.99, stock: 3, quantite: 0, image: "img/disney/heihei.webp" },
+            { id: 25, nom: "Mickey", theme: "Disney", ref: "41624", pieces: "109", description: "L’icône indémodable de l’univers Disney.", prix: 9.99, stock: 2, quantite: 0, image: "img/disney/mickey.webp" },
+            { id: 26, nom: "Simba", theme: "Disney", ref: "43247", pieces: "1445", description: "Le futur roi de la savane dans une pose majestueuse. Hakuna Matata", prix: 129.99, stock: 5, quantite: 0, image: "img/disney/simba.webp" },
+            { id: 27, nom: "Stitch", theme: "Disney", ref: "43249", pieces: "730", description: "L’extraterrestre adorable et plein d’énergie. Ohana signifie famille !", prix: 64.99, stock: 5, quantite: 0, image: "img/disney/stitch.webp" },
+            { id: 28, nom: "Tic et Tac", theme: "Disney", ref: "40550", pieces: "226", description: "Deux chipmunks malicieux inséparables.", prix: 13.99, stock: 0, quantite: 0, image: "img/disney/tictac.webp" },
+            { id: 29, nom: "Vaiana et Mérida", theme: "Disney", ref: "40621", pieces: "410", description: "Deux héroïnes courageuses prêtes à explorer leur destin.", prix: 15.99, stock: 0, quantite: 0, image: "img/disney/vaianamerida.webp" },
+            { id: 30, nom: "Vice Versa", theme: "Disney", ref: "40749", pieces: "300", description: "Les émotions colorées réunies dans un set expressif.", prix: 19.99, stock: 5, quantite: 0, image: "img/disney/viceversa.webp" },
 
+            { id: 31, nom: "L'Arrosoir fleuri", theme: "Fleurs", ref: "31149", pieces: "420", description: "Un petit arrosoir fleuri jaune canari.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/arrosoir.webp" },
+            { id: 32, nom: "Le Bambou", theme: "Fleurs", ref: "10344", pieces: "325", description: "Un bambou vert porte-bonheur.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/bambou.webp" },
+            { id: 33, nom: "Le Bonsaï rouge", theme: "Fleurs", ref: "10348", pieces: "474", description: "Un bonsaï d'érable rouge flamboyant du Japon", prix: 59.99, stock: 3, quantite: 0, image: "img/fleurs/bonsairouge.webp" },
+            { id: 34, nom: "Le Bouquet de fleurs sauvages", theme: "Fleurs", ref: "10313", pieces: "939", description: "Un bouquet de fleurs sauvages colorées.", prix: 59.99, stock: 5, quantite: 0, image: "img/fleurs/bouquetfleursauvage.webp" },
+            { id: 35, nom: "Le Bouquet de roses", theme: "Fleurs", ref: "10328", pieces: "822", description: "Un bouquet de roses rouges élégantes.", prix: 59.99, stock: 5, quantite: 0, image: "img/fleurs/bouquetroses.webp" },
+            { id: 36, nom: "Le Cactus", theme: "Fleurs", ref: "11509", pieces: "482", description: "Un joli cactus vert et fleuri.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/cactus.webp" },
+            { id: 37, nom: "Le Chrysanthème", theme: "Fleurs", ref: "10368", pieces: "278", description: "Un chrysanthème jaune éclatant et son pot vert et doré.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/chrysantheme.webp" },
+            { id: 38, nom: "Les fleurs de cerisier", theme: "Fleurs", ref: "40725", pieces: "430", description: "Branches de fleur de cerisier rose et tendre.", prix: 14.99, stock: 10, quantite: 0, image: "img/fleurs/fleurcerisier.webp" },
+            { id: 39, nom: "Les fleurs de prunier", theme: "Fleurs", ref: "10369", pieces: "327", description: "Une fleur de prunier rose vif.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/fleurprunier.webp" },
+            { id: 40, nom: "L'Hibiscus", theme: "Fleurs", ref: "10372", pieces: "660", description: "Un hibiscus violet nacré et tropical.", prix: 69.99, stock: 3, quantite: 0, image: "img/fleurs/hibiscus.webp" },
+            { id: 41, nom: "L'Orchidée", theme: "Fleurs", ref: "10343", pieces: "274", description: "Dans l’art traditionnel, l’orchidée représente le printemps et symbolise les nouveaux départs.", prix: 29.99, stock: 5, quantite: 0, image: "img/fleurs/orchidee.webp" },
 
-            {
-              id: 16,
-              nom: "Angel",
-              theme: "Disney",
-              ref: "43257",
-              pieces: "784",
-              description: "Angel est un superbe cadeau à offrir aux fans de Disney, amateurs de Lilo et Stitch.",
-              prix: 64.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/disney/angel.webp"
-            },
-            {
-              id: 17,
-              nom: "Ariel et Ursula",
-              theme: "Disney",
-              ref: "41623",
-              pieces: "361",
-              description: "Une scène sous-marine entre la sirène et la sorcière des mers.",
-              prix: 15.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/arielursula.webp"
-            },
-            {
-              id: 18,
-              nom: "Belle",
-              theme: "Disney",
-              ref: "41595",
-              pieces: "139",
-              description: "La princesse rêveuse au charme intemporel.",
-              prix: 14.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/belle.webp"
-            },
-            {
-              id: 19,
-              nom: "Buzz l'éclair",
-              theme: "Disney",
-              ref: "40552",
-              pieces: "114",
-              description: "Un ranger de l’espace prêt pour l’aventure.",
-              prix: 8.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/buzzleclair.webp"
-            },
-            {
-              id: 20,
-              nom: "Cars",
-              theme: "Disney",
-              ref: "77255",
-              pieces: "270",
-              description: "Flash McQueen, un bolide emblématique pour foncer vers l’amusement.",
-              prix: 27.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/disney/cars.webp"
-            },
-            {
-              id: 21,
-              nom: "Cruella et Maléfique",
-              theme: "Disney",
-              ref: "40620",
-              pieces: "320",
-              description: "Deux méchantes iconiques réunies dans un set captivant.",
-              prix: 13.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/cruellamalefique.webp"
-            },
-            {
-              id: 22,
-              nom: "Le chiot 101 Dalmatiens",
-              theme: "Disney",
-              ref: "43269",
-              pieces: "1722",
-              description: "Offrez-vous un adorable objet décoratif avec le set Le Chiot des 101 Dalmatiens.",
-              prix: 139.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/disney/dalmatien.webp"
-            },
-            {
-              id: 23,
-              nom: "Dumbo",
-              theme: "Disney",
-              ref: "40792",
-              pieces: "176",
-              description: "L’éléphant volant au cœur immense.",
-              prix: 9.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/disney/dumbo.webp"
-            },
-            {
-              id: 24,
-              nom: "HeiHei",
-              theme: "Disney",
-              ref: "43272",
-              pieces: "566",
-              description: "Le poulet farfelu du monde de Vaiana qui apporte une touche humoristique.",
-              prix: 39.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/disney/heihei.webp"
-            },
-            {
-              id: 25,
-              nom: "Mickey",
-              theme: "Disney",
-              ref: "41624",
-              pieces: "109",
-              description: "L’icône indémodable de l’univers Disney.",
-              prix: 9.99,
-              stock: 2,
-              quantite: 0,
-              image: "img/disney/mickey.webp"
-            },
-            {
-              id: 26,
-              nom: "Simba",
-              theme: "Disney",
-              ref: "43247",
-              pieces: "1445",
-              description: "Le futur roi de la savane dans une pose majestueuse. Hakuna Matata",
-              prix: 129.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/disney/simba.webp"
-            },
-            {
-              id: 27,
-              nom: "Stitch",
-              theme: "Disney",
-              ref: "43249",
-              pieces: "730",
-              description: "L’extraterrestre adorable et plein d’énergie. Ohana signifie famille !",
-              prix: 64.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/disney/stitch.webp"
-            },
-            {
-              id: 28,
-              nom: "Tic et Tac",
-              theme: "Disney",
-              ref: "40550",
-              pieces: "226",
-              description: "Deux chipmunks malicieux inséparables.",
-              prix: 13.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/tictac.webp"
-            },
-            {
-              id: 29,
-              nom: "Vaiana et Mérida",
-              theme: "Disney",
-              ref: "40621",
-              pieces: "410",
-              description: "Deux héroïnes courageuses prêtes à explorer leur destin.",
-              prix: 15.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/disney/vaianamerida.webp"
-            },
-            {
-              id: 30,
-              nom: "Vice Versa",
-              theme: "Disney",
-              ref: "40749",
-              pieces: "300",
-              description: "Les émotions colorées réunies dans un set expressif.",
-              prix: 19.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/disney/viceversa.webp"
-            },
+            { id: 42, nom: "Buck", theme: "Harry Potter", ref: "76427", pieces: "723", description: "Un majestueux hippogriffe argenté qui évoque toute la magie du ciel.", prix: 59.99, stock: 3, quantite: 0, image: "img/harry_potter/buck.webp" },
+            { id: 43, nom: "Le Choixpeau", theme: "Harry Potter", ref: "76429", pieces: "561", description: "Un vieux choixpeau animé qui paraît prêt à révéler votre maison.", prix: 99.99, stock: 5, quantite: 0, image: "img/harry_potter/choixpeau.webp" },
+            { id: 44, nom: "Dobby", theme: "Harry Potter", ref: "76421", pieces: "403", description: "Un elfe de maison au regard attendrissant qui inspire immédiatement la sympathie.", prix: 29.99, stock: 5, quantite: 0, image: "img/harry_potter/dobby.webp" },
+            { id: 45, nom: "Hagrid et sa moto", theme: "Harry Potter", ref: "76443", pieces: "617", description: "Une moto robuste et massive qui rappelle les aventures folles de Hagrid.", prix: 49.99, stock: 5, quantite: 0, image: "img/harry_potter/hagridmoto.webp" },
+            { id: 46, nom: "Harry Potter", theme: "Harry Potter", ref: "41615", pieces: "180", description: "Un jeune sorcier déterminé tenant fermement sa baguette magique.", prix: 12.99, stock: 3, quantite: 0, image: "img/harry_potter/harrypotter.webp" },
+            { id: 47, nom: "Hedwige", theme: "Harry Potter", ref: "76391", pieces: "3010", description: "Une chouette blanche élégante qui dégage une douceur réconfortante.", prix: 299.99, stock: 0, quantite: 0, image: "img/harry_potter/hedwige.webp" },
+            { id: 48, nom: "Hermione", theme: "Harry Potter", ref: "41616", pieces: "127", description: "Une brillante sorcière au regard vif et inspirant, prête à tout apprendre.", prix: 9.99, stock: 0, quantite: 0, image: "img/harry_potter/hermione.webp" },
+            { id: 49, nom: "Livre Monstre", theme: "Harry Potter", ref: "76449", pieces: "818", description: "Un livre grinçant recouvert de fourrure, comme s’il allait bondir d’un instant à l’autres.", prix: 59.99, stock: 3, quantite: 0, image: "img/harry_potter/livremonstre.webp" },
+            { id: 50, nom: "Poudlard", theme: "Harry Potter", ref: "71043", pieces: "6020", description: "Un château mystérieux illuminé, semblant abriter mille secrets magiques.", prix: 469.99, stock: 2, quantite: 0, image: "img/harry_potter/poudlard.webp" },
+            { id: 51, nom: "Le Poudlard Express", theme: "Harry Potter", ref: "76405", pieces: "5129", description: "Un train rouge étincelant qui donne envie de monter à bord sans attendre.", prix: 449.99, stock: 1, quantite: 0, image: "img/harry_potter/poudlardexpress.webp" },
+            { id: 52, nom: "Ron et Dumbledor", theme: "Harry Potter", ref: "41621", pieces: "245", description: "Un duo emblématique représenté dans une scène chaleureuse et rassurante.", prix: 14.99, stock: 0, quantite: 0, image: "img/harry_potter/rondumbledor.webp" },
+            { id: 53, nom: "Voldemor et Bellatrix", theme: "Harry Potter", ref: "40496", pieces: "344", description: "Un duo sombre et puissant, enveloppé d’une aura inquiétante et ensorcelante.", prix: 19.99, stock: 3, quantite: 0, image: "img/harry_potter/voldemorbellatrix.webp" },
 
-
-
-            {
-              id: 31,
-              nom: "L'Arrosoir fleuri",
-              theme: "Fleurs",
-              ref: "31149",
-              pieces: "420",
-              description: "Un petit arrosoir fleuri jaune canari.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/arrosoir.webp"
-            },
-            {
-              id: 32,
-              nom: "Le Bambou",
-              theme: "Fleurs",
-              ref: "10344",
-              pieces: "325",
-              description: "Un bambou vert porte-bonheur.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/bambou.webp"
-            },
-            {
-              id: 33,
-              nom: "Le Bonsaï rouge",
-              theme: "Fleurs",
-              ref: "10348",
-              pieces: "474",
-              description: "Un bonsaï d'érable rouge flamboyant du Japon",
-              prix: 59.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/fleurs/bonsairouge.webp"
-            },
-            {
-              id: 34,
-              nom: "Le Bouquet de fleurs sauvages",
-              theme: "Fleurs",
-              ref: "10313",
-              pieces: "939",
-              description: "Un bouquet de fleurs sauvages colorées.",
-              prix: 59.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/bouquetfleursauvage.webp"
-            },
-            {
-              id: 35,
-              nom: "Le Bouquet de roses",
-              theme: "Fleurs",
-              ref: "10328",
-              pieces: "822",
-              description: "Un bouquet de roses rouges élégantes.",
-              prix: 59.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/bouquetroses.webp"
-            },
-            {
-              id: 36,
-              nom: "Le Cactus",
-              theme: "Fleurs",
-              ref: "11509",
-              pieces: "482",
-              description: "Un joli cactus vert et fleuri.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/cactus.webp"
-            },
-            {
-              id: 37,
-              nom: "Le Chrysanthème",
-              theme: "Fleurs",
-              ref: "10368",
-              pieces: "278",
-              description: "Un chrysanthème jaune éclatant et son pot vert et doré.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/chrysantheme.webp"
-            },
-            {
-              id: 38,
-              nom: "Les fleurs de cerisier",
-              theme: "Fleurs",
-              ref: "40725",
-              pieces: "430",
-              description: "Branches de fleur de cerisier rose et tendre.",
-              prix: 14.99,
-              stock: 10,
-              quantite: 0,
-              image: "img/fleurs/fleurcerisier.webp"
-            },
-            {
-              id: 39,
-              nom: "Les fleurs de prunier",
-              theme: "Fleurs",
-              ref: "10369",
-              pieces: "327",
-              description: "Une fleur de prunier rose vif.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/fleurprunier.webp"
-            },
-            {
-              id: 40,
-              nom: "L'Hibiscus",
-              theme: "Fleurs",
-              ref: "10372",
-              pieces: "660",
-              description: "Un hibiscus violet nacré et tropical.",
-              prix: 69.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/fleurs/hibiscus.webp"
-            },
-            {
-              id: 41,
-              nom: "L'Orchidée",
-              theme: "Fleurs",
-              ref: "10343",
-              pieces: "274",
-              description: "Dans l’art traditionnel, l’orchidée représente le printemps et symbolise les nouveaux départs.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/fleurs/orchidee.webp"
-            },
-
-
-
-            {
-              id: 42,
-              nom: "Buck",
-              theme: "Harry Potter",
-              ref: "76427",
-              pieces: "723",
-              description: "Un majestueux hippogriffe argenté qui évoque toute la magie du ciel.",
-              prix: 59.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/harry_potter/buck.webp"
-            },
-            {
-              id: 43,
-              nom: "Le Choixpeau",
-              theme: "Harry Potter",
-              ref: "76429",
-              pieces: "561",
-              description: "Un vieux choixpeau animé qui paraît prêt à révéler votre maison.",
-              prix: 99.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/harry_potter/choixpeau.webp"
-            },
-            {
-              id: 44,
-              nom: "Dobby",
-              theme: "Harry Potter",
-              ref: "76421",
-              pieces: "403",
-              description: "Un elfe de maison au regard attendrissant qui inspire immédiatement la sympathie.",
-              prix: 29.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/harry_potter/dobby.webp"
-            },
-            {
-              id: 45,
-              nom: "Hagrid et sa moto",
-              theme: "Harry Potter",
-              ref: "76443",
-              pieces: "617",
-              description: "Une moto robuste et massive qui rappelle les aventures folles de Hagrid.",
-              prix: 49.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/harry_potter/hagridmoto.webp"
-            },
-            {
-              id: 46,
-              nom: "Harry Potter",
-              theme: "Harry Potter",
-              ref: "41615",
-              pieces: "180",
-              description: "Un jeune sorcier déterminé tenant fermement sa baguette magique.",
-              prix: 12.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/harry_potter/harrypotter.webp"
-            },
-            {
-              id: 47,
-              nom: "Hedwige",
-              theme: "Harry Potter",
-              ref: "76391",
-              pieces: "3010",
-              description: "Une chouette blanche élégante qui dégage une douceur réconfortante.",
-              prix: 299.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/harry_potter/hedwige.webp"
-            },
-            {
-              id: 48,
-              nom: "Hermione",
-              theme: "Harry Potter",
-              ref: "41616",
-              pieces: "127",
-              description: "Une brillante sorcière au regard vif et inspirant, prête à tout apprendre.",
-              prix: 9.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/harry_potter/hermione.webp"
-            },
-            {
-              id: 49,
-              nom: "Livre Monstre",
-              theme: "Harry Potter",
-              ref: "76449",
-              pieces: "818",
-              description: "Un livre grinçant recouvert de fourrure, comme s’il allait bondir d’un instant à l’autres.",
-              prix: 59.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/harry_potter/livremonstre.webp"
-            },
-            {
-              id: 50,
-              nom: "Poudlard",
-              theme: "Harry Potter",
-              ref: "71043",
-              pieces: "6020",
-              description: "Un château mystérieux illuminé, semblant abriter mille secrets magiques.",
-              prix: 469.99,
-              stock: 2,
-              quantite: 0,
-              image: "img/harry_potter/poudlard.webp"
-            },
-            {
-              id: 51,
-              nom: "Le Poudlard Express",
-              theme: "Harry Potter",
-              ref: "76405",
-              pieces: "5129",
-              description: "Un train rouge étincelant qui donne envie de monter à bord sans attendre.",
-              prix: 449.99,
-              stock: 1,
-              quantite: 0,
-              image: "img/harry_potter/poudlardexpress.webp"
-            },
-            {
-              id: 52,
-              nom: "Ron et Dumbledor",
-              theme: "Harry Potter",
-              ref: "41621",
-              pieces: "245",
-              description: "Un duo emblématique représenté dans une scène chaleureuse et rassurante.",
-              prix: 14.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/harry_potter/rondumbledor.webp"
-            },
-            {
-              id: 53,
-              nom: "Voldemor et Bellatrix",
-              theme: "Harry Potter",
-              ref: "40496",
-              pieces: "344",
-              description: "Un duo sombre et puissant, enveloppé d’une aura inquiétante et ensorcelante.",
-              prix: 19.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/harry_potter/voldemorbellatrix.webp"
-            },
-
-
-
-
-            {
-              id: 54,
-              nom: "Bowser",
-              theme: "Mario",
-              ref: "71411",
-              pieces: "2807",
-              description: "Un Bowser imposant aux flammes menaçantes, dégageant une puissance irrésistible.",
-              prix: 269.99,
-              stock: 5,
-              quantite: 0,
-              image: "img/mario/bowser.webp"
-            },
-            {
-              id: 55,
-              nom: "Donkey Kong",
-              theme: "Mario",
-              ref: "72033",
-              pieces: "387",
-              description: "Un Donkey Kong plein d’énergie, prêt à foncer dans l’aventure.",
-              prix: 34.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/mario/donkeykong.webp"
-            },
-            {
-              id: 56,
-              nom: "La Maison des Toads",
-              theme: "Mario",
-              ref: "72041",
-              pieces: "276",
-              description: "Une petite maison Toad colorée et chaleureuse qui invite immédiatement à entrer.",
-              prix: 29.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/mario/maisontoads.webp"
-            },
-            {
-              id: 57,
-              nom: "Mario et son Kart",
-              theme: "Mario",
-              ref: "72037",
-              pieces: "1972",
-              description: "Un Mario déterminé au volant de son kart, prêt à gagner la course.",
-              prix: 169.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/mario/mariokart.webp"
-            },
-            {
-              id: 58,
-              nom: "La Plante Pirhana",
-              theme: "Mario",
-              ref: "71426",
-              pieces: "540",
-              description: "Une plante piranha vive et mordante qui apporte une touche de fun.",
-              prix: 64.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/mario/plantepirhana.webp"
-            },
-            {
-              id: 59,
-              nom: "Wario et le Roi Boo",
-              theme: "Mario",
-              ref: "72038",
-              pieces: "512",
-              description: "Un duo farceur et imprévisible qui dégage une ambiance totalement délirante",
-              prix: 49.99,
-              stock: 3,
-              quantite: 0,
-              image: "img/mario/warioroiboo.webp"
-            },
-            {
-              id: 60,
-              nom: "Yoshi et sa moto",
-              theme: "Mario",
-              ref: "72031",
-              pieces: "133",
-              description: "Un Yoshi souriant lancé sur sa moto, dégageant une sensation de vitesse joyeuse.",
-              prix: 14.99,
-              stock: 0,
-              quantite: 0,
-              image: "img/mario/yoshimoto.webp"
-            }
+            { id: 54, nom: "Bowser", theme: "Mario", ref: "71411", pieces: "2807", description: "Un Bowser imposant aux flammes menaçantes, dégageant une puissance irrésistible.", prix: 269.99, stock: 5, quantite: 0, image: "img/mario/bowser.webp" },
+            { id: 55, nom: "Donkey Kong", theme: "Mario", ref: "72033", pieces: "387", description: "Un Donkey Kong plein d’énergie, prêt à foncer dans l’aventure.", prix: 34.99, stock: 3, quantite: 0, image: "img/mario/donkeykong.webp" },
+            { id: 56, nom: "La Maison des Toads", theme: "Mario", ref: "72041", pieces: "276", description: "Une petite maison Toad colorée et chaleureuse qui invite immédiatement à entrer.", prix: 29.99, stock: 3, quantite: 0, image: "img/mario/maisontoads.webp" },
+            { id: 57, nom: "Mario et son Kart", theme: "Mario", ref: "72037", pieces: "1972", description: "Un Mario déterminé au volant de son kart, prêt à gagner la course.", prix: 169.99, stock: 3, quantite: 0, image: "img/mario/mariokart.webp" },
+            { id: 58, nom: "La Plante Pirhana", theme: "Mario", ref: "71426", pieces: "540", description: "Une plante piranha vive et mordante qui apporte une touche de fun.", prix: 64.99, stock: 3, quantite: 0, image: "img/mario/plantepirhana.webp" },
+            { id: 59, nom: "Wario et le Roi Boo", theme: "Mario", ref: "72038", pieces: "512", description: "Un duo farceur et imprévisible qui dégage une ambiance totalement délirante", prix: 49.99, stock: 3, quantite: 0, image: "img/mario/warioroiboo.webp" },
+            { id: 60, nom: "Yoshi et sa moto", theme: "Mario", ref: "72031", pieces: "133", description: "Un Yoshi souriant lancé sur sa moto, dégageant une sensation de vitesse joyeuse.", prix: 14.99, stock: 0, quantite: 0, image: "img/mario/yoshimoto.webp" }
           ],
           bugMode: false,
           errorWindows: [],
@@ -1726,11 +1202,10 @@
         },
 
         articlesFiltres() {
-          let t = this.recherche.toLowerCase();
+          let t = this.recherche;
 
-          
           let res = this.articles.filter(a => {
-            if (!a.nom.toLowerCase().includes(t)) {
+            if (!a.nom.includes(t)) {
               return false;
             }
             if (this.themeSelectionne !== "Tous" && a.theme !== this.themeSelectionne) {
@@ -1739,7 +1214,6 @@
             return true;
           });
 
-          
           if (this.sortPrix === "asc") {
             res = [...res].sort((a, b) => a.prix - b.prix);
           } else if (this.sortPrix === "desc") {
@@ -1748,19 +1222,33 @@
 
           return res;
         }
-
       },
 
       methods: {
+        declencherOndulation() {
+          const app = document.body;
+          const sound = document.getElementById("waveSound");
+
+          app.classList.remove("wave-monitor", "ecg-flash");
+          void app.offsetWidth;
+          app.classList.add("wave-monitor", "ecg-flash");
+
+          if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(err => console.error("Erreur audio :", err));
+          }
+
+          setTimeout(() => {
+            app.classList.remove("wave-monitor", "ecg-flash");
+          }, 1200);
+        },
+
         ajouter(a) {
           if (a.stock > 0) {
             a.stock--;
             a.quantite++;
 
-            
             this.bugMode = true;
-
-            
             this.errorWindows = Array.from({ length: 20 }, (_, i) => ({
               id: i,
               top: Math.random() * (window.innerHeight - 250),
@@ -1779,6 +1267,16 @@
 
         fermerPanier() {
           this.panierOuvert = false;
+        },
+
+        selectionnerCarte(a) {
+         this.carteSelectionnee = a.id;
+         this.imageBugSrc = "img/lion.jpg";
+         this.imageBugVisible = true;
+
+         setTimeout(() => {
+            this.imageBugVisible = false;
+          }, 3000);
         },
 
         changerQuantite(article, delta) {
@@ -1803,6 +1301,7 @@
         fermerDetails() {
           this.selectedArticle = null;
         },
+
         toggleTheme() {
           this.darkMode = !this.darkMode;
           document.body.classList.toggle("dark", this.darkMode);
@@ -1822,7 +1321,6 @@
             return;
           }
 
-          
           const index = this.articles.findIndex(p => p.id === this.produitEnEdition.id);
 
           if (index !== -1) {
@@ -1856,7 +1354,6 @@
             image: this.nouveauProduit.image || "img/legologo.png"
           });
 
-          
           this.nouveauProduit = {
             nom: "",
             theme: "Animaux",
@@ -1875,24 +1372,23 @@
         },
 
         fermerErreur(index) {
-          
           this.errorWindows.splice(index, 1);
 
-          
           setTimeout(() => {
             this.errorWindows.push({
-              id: Date.now(),
+              id: Date.now() + Math.random(),
               top: Math.random() * (window.innerHeight - 250),
               left: Math.random() * (window.innerWidth - 400)
             });
           }, 100);
         }
-
       }
     }).mount("#app");
-
   </script>
 
+  <audio id="waveSound" preload="auto">
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+  </audio>
 </body>
 
 </html>
