@@ -822,7 +822,7 @@
             style="padding:.35rem .7rem; border-radius:999px; border:1px solid #bbb; font-size:.9rem;">
             <option value="none">Aucun tri</option>
             <option value="asc">Prix croissant</option>
-            <option value="desc">Prix décroissant</option>
+            <option value="des">Prix décroissant</option>
           </select>
         </div>
       </div>
@@ -904,7 +904,7 @@
           <img :src="a.image" :alt="a.nom">
 
           <div class="title-product">{{ a.nom }}</div>
-          <div class="theme">{{ a.theme }} • réf. {{ a.ref }} • {{ a.pieces }} pièces</div>
+          <div class="theme">{{ a.theme }} • réf. {{ a.ref }} • {{ a.piece }} pièces</div>
           <div class="desc">{{ a.description }}</div>
 
           <span class="stock" :class="a.stock>0 ? 'ok' : 'ko'">
@@ -917,7 +917,7 @@
           </div>
 
           <div class="btns">
-            <button @click.stop="voirDetails(a)">Détails</button>
+            <button @click.stop="voirDetail(a)">Détails</button>
             <button @click="ajouter(a)" :disabled="a.stock===0">Ajouter</button>
             <button class="edit" @click.stop="ouvrirEdition(a); selectionnerCarte(a)">Modifier</button>
             <button class="del" @click="supprimer(a.id)">Supprimer</button>
@@ -931,7 +931,7 @@
 
           <div class="list-info">
             <strong>{{ a.nom }}</strong>
-            <span>{{ a.theme }} • réf. {{ a.ref }} • {{ a.pieces }} pièces</span>
+            <span>{{ a.theme }} • réf. {{ a.ref }} • {{ a.piece }} pièces</span>
             <span>{{ a.description }}</span>
 
             <span class="stock" :class="a.stock>0 ? 'ok' : 'ko'">
@@ -945,7 +945,7 @@
           </div>
 
           <div class="list-actions">
-            <button @click.stop="voirDetails(a)">Détails</button>
+            <button @click.stop="voirDetail(a)">Détails</button>
             <button @click="ajouter(a)" :disabled="a.stock===0">Ajouter</button>
             <button class="del" @click="supprimer(a.id)">Supprimer</button>
           </div>
@@ -957,7 +957,7 @@
           <h2>{{ selectedArticle.nom }}</h2>
           <p><strong>Thème :</strong> {{ selectedArticle.theme }}</p>
           <p><strong>Référence :</strong> {{ selectedArticle.ref }}</p>
-          <p><strong>Nombre de pièces :</strong> {{ selectedArticle.pieces }}</p>
+          <p><strong>Nombre de pièces :</strong> {{ selectedArticle.piece }}</p>
           <p><strong>Description :</strong> {{ selectedArticle.description }}</p>
           <p><strong>Prix :</strong> {{ selectedArticle.prix.toFixed(2) }} €</p>
           <p>
@@ -1092,7 +1092,7 @@
       data() {
         return {
           themeSelectionne: "Tous",
-          themes: ["Animaux", "Disney", "Fleurs", "Harry Potter", "Mario"],
+          themes: ["Animau", "Disney", "Fleur", "Harry Potter", "Mario"],
           recherche: "",
           selectedArticle: null,
           afficherFormulaire: false,
@@ -1168,7 +1168,7 @@
             { id: 46, nom: "Harry Potter", theme: "Harry Potter", ref: "41615", pieces: "180", description: "Un jeune sorcier déterminé tenant fermement sa baguette magique.", prix: 12.99, stock: 3, quantite: 0, image: "img/harry_potter/harrypotter.webp" },
             { id: 47, nom: "Hedwige", theme: "Harry Potter", ref: "76391", pieces: "3010", description: "Une chouette blanche élégante qui dégage une douceur réconfortante.", prix: 299.99, stock: 0, quantite: 0, image: "img/harry_potter/hedwige.webp" },
             { id: 48, nom: "Hermione", theme: "Harry Potter", ref: "41616", pieces: "127", description: "Une brillante sorcière au regard vif et inspirant, prête à tout apprendre.", prix: 9.99, stock: 0, quantite: 0, image: "img/harry_potter/hermione.webp" },
-            { id: 49, nom: "Livre Monstre", theme: "Harry Potter", ref: "76449", pieces: "818", description: "Un livre grinçant recouvert de fourrure, comme s’il allait bondir d’un instant à l’autres.", prix: 59.99, stock: 3, quantite: 0, image: "img/harry_potter/livremonstre.webp" },
+            { id: 49, nom: "Livre Monstre", theme: "Harry Potter", ref: "76449", pieces: "818", description: "Un livre grinçant recouvert de fourrure, comme s’il allait bondir d’un instant à l’autres.", prix: 59.99, stock: 3, quantite: 0, image: "img/harry_potter/livremonstre.web" },
             { id: 50, nom: "Poudlard", theme: "Harry Potter", ref: "71043", pieces: "6020", description: "Un château mystérieux illuminé, semblant abriter mille secrets magiques.", prix: 469.99, stock: 2, quantite: 0, image: "img/harry_potter/poudlard.webp" },
             { id: 51, nom: "Le Poudlard Express", theme: "Harry Potter", ref: "76405", pieces: "5129", description: "Un train rouge étincelant qui donne envie de monter à bord sans attendre.", prix: 449.99, stock: 1, quantite: 0, image: "img/harry_potter/poudlardexpress.webp" },
             { id: 52, nom: "Ron et Dumbledor", theme: "Harry Potter", ref: "41621", pieces: "245", description: "Un duo emblématique représenté dans une scène chaleureuse et rassurante.", prix: 14.99, stock: 0, quantite: 0, image: "img/harry_potter/rondumbledor.webp" },
