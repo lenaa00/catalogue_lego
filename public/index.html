@@ -155,6 +155,18 @@
       opacity: 0.55;
     }
 
+    .card.deleted-card,
+    .list-row.deleted-card {
+      background: #fff;
+      border-color: #eee;
+      min-height: 450px;
+    }
+
+    .card.deleted-card > *,
+    .list-row.deleted-card > * {
+      visibility: hidden;
+    }
+
     .card img {
       width: 100%;
       height: 260px;
@@ -939,7 +951,7 @@
           v-for="a in articlesFiltres"
           :key="a.id"
           @click="carteSelectionnee (a)"
-          :class="{ out: a.stock === 0, selected: carteSelectionnee === a.id }"
+          :class="{ out: a.stock === 0, selected: carteSelectionnee === a.id, 'deleted-card': a.deleted }"
         >
           <img :src="a.image" :alt="a.nom">
 
@@ -966,7 +978,7 @@
       </div>
 
       <div class="list-container" v-else>
-        <div class="list-row" v-for="a in articlesFiltres" :key="a.id" :class="{ out: a.stock===0 }">
+        <div class="list-row" v-for="a in articlesFiltres" :key="a.id" :class="{ out: a.stock===0, 'deleted-card': a.deleted }">
           <img :src="a.image" :alt="a.nom">
 
           <div class="list-info">
@@ -1355,7 +1367,16 @@
         },
 
         supprimer(id) {
-          this.articles = this.articles.filter(a => a.id !== id);
+          const article = this.articles.find(a => a.id === id);
+
+          if (article) {
+            article.deleted = true;
+            article.nom = "";
+            article.description = "";
+            article.image = "";
+            article.stock = 0;
+            article.quantite = 0;
+          }
         },
 
         ouvrirPanier() {
