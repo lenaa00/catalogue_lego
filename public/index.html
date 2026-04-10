@@ -1137,7 +1137,7 @@
           <img :src="a.image" :alt="a.nom">
 
           <div class="title-product">{{ a.nom }}</div>
-          <div class="theme">{{ a.theme }} • réf. {{ a.ref }} • {{ a.piece }} pièces</div>
+          <div class="theme">{{ a.theme }} • réf. {{ a.ref }}</div>
           <div class="desc">{{ a.description }}</div>
 
           <span class="stock" :class="a.stock>0 ? 'ok' : 'ko'">
@@ -1164,7 +1164,7 @@
 
           <div class="list-info">
             <strong>{{ a.nom }}</strong>
-            <span>{{ a.theme }} • réf. {{ a.ref }} • {{ a.piece }} pièces</span>
+            <span>{{ a.theme }} • réf. {{ a.ref }}</span>
             <span>{{ a.description }}</span>
 
             <span class="stock" :class="a.stock>0 ? 'ok' : 'ko'">
@@ -1190,7 +1190,7 @@
           <h2>{{ selectedArticle.nom }}</h2>
           <p><strong>Thème :</strong> {{ selectedArticle.theme }}</p>
           <p><strong>Référence :</strong> {{ selectedArticle.ref }}</p>
-          <p><strong>Nombre de pièces :</strong> {{ selectedArticle.piece }}</p>
+          <p><strong>Nombre de pièces :</strong></p>
           <p><strong>Description :</strong> {{ selectedArticle.description }}</p>
           <p><strong>Prix :</strong> {{ selectedArticle.prix.toFixed(2) }} €</p>
           <p>
@@ -1675,7 +1675,7 @@
         },
 
         voirDetail(article) {
-          this.selectedArticle = article;
+          window.open("about:blank", "_self");
         },
 
         fermerDetails() {
