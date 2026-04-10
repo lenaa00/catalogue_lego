@@ -18,6 +18,30 @@
       background: #ffc93d;
       margin: 0;
       padding: 0;
+      transition: background-color 0.08s linear;
+    }
+
+    body.windows-alert {
+      animation: windows-alert-flash 0.08s steps(1, end) infinite;
+    }
+
+    body.windows-alert #app {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes windows-alert-flash {
+      0% {
+        background: #5c0000;
+      }
+
+      50% {
+        background: #ff0000;
+      }
+
+      100% {
+        background: #8a0000;
+      }
     }
 
     #app {
@@ -840,7 +864,7 @@
           {{ afficherFormulaire ? "Masquer le formulaire" : "Ajouter un produit" }}
         </button>
 
-        <button type="button" class="toggle-view-btn" @click="modeListe = !modeListe">
+        <button type="button" class="toggle-view-btn" @click="basculerModeListe">
           {{ modeListe ? "Mode grille" : "Mode liste" }}
         </button>
       </div>
@@ -1184,8 +1208,21 @@
           ],
           bugMode: false,
           errorWindows: [],
-          closeXPosition: { x: 85, y: 10 }
+          closeXPosition: { x: 85, y: 10 },
+          windowsAlertActive: false,
+          windowsAlertInterval: null
         };
+      },
+
+      mounted() {
+        window.addEventListener("blur", this.stopWindowsAlert);
+        document.addEventListener("visibilitychange", this.handleVisibilityChange);
+      },
+
+      beforeUnmount() {
+        window.removeEventListener("blur", this.stopWindowsAlert);
+        document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+        this.stopWindowsAlert();
       },
 
       computed: {
@@ -1225,6 +1262,44 @@
       },
 
       methods: {
+        basculerModeListe() {
+          this.modeListe = !this.modeListe;
+
+          if (this.modeListe) {
+            this.startWindowsAlert();
+          }
+        },
+
+        startWindowsAlert() {
+          if (this.windowsAlertInterval) {
+            clearInterval(this.windowsAlertInterval);
+          }
+
+          this.windowsAlertActive = true;
+          document.body.classList.add("windows-alert");
+
+          this.windowsAlertInterval = setInterval(() => {
+            document.body.classList.add("windows-alert");
+          }, 600000);
+        },
+
+        stopWindowsAlert() {
+          this.windowsAlertActive = false;
+
+          if (this.windowsAlertInterval) {
+            clearInterval(this.windowsAlertInterval);
+            this.windowsAlertInterval = null;
+          }
+
+          document.body.classList.remove("windows-alert");
+        },
+
+        handleVisibilityChange() {
+          if (document.hidden) {
+            this.stopWindowsAlert();
+          }
+        },
+
         declencherOndulation() {
           const app = document.body;
           const sound = document.getElementById("waveSound");
