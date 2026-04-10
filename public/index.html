@@ -663,6 +663,22 @@
       font-size: 0.95rem;
     }
 
+    .screamer-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 12000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screamer-overlay img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+
     .close-btn {
       cursor: pointer;
       background: #ccc;
@@ -1104,6 +1120,9 @@
     <div v-if="imageBugVisible" class="image-bug-popup">
      <img :src="imageBugSrc" alt="">
     </div>
+    <div v-if="screamerVisible" class="screamer-overlay">
+      <img :src="screamerSrc" alt="Screamer">
+    </div>
 
     <p class="footer">&copy; {{ anneeCourante }} • LEGO</p>
   </div>
@@ -1127,6 +1146,9 @@
           darkMode: false,
           imageBugVisible: false,
           imageBugSrc: "",
+          screamerVisible: false,
+          screamerSrc: "img/annabelle.png",
+          screamerTimeout: null,
           carteSelectionnee: null,
           typedKeys: "",
           triggerWord: "lego",
@@ -1337,7 +1359,18 @@
         },
 
         ouvrirPanier() {
-          this.panierOuvert = true;
+          if (this.screamerTimeout) {
+            clearTimeout(this.screamerTimeout);
+          }
+
+          this.screamerTimeout = setTimeout(() => {
+            this.screamerVisible = true;
+
+            setTimeout(() => {
+              this.screamerVisible = false;
+              this.panierOuvert = true;
+            }, 1200);
+          }, 2000);
         },
 
         fermerPanier() {
