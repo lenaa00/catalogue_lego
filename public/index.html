@@ -1385,12 +1385,24 @@
           }
 
           this.screamerTimeout = setTimeout(() => {
+            const screamerSound = document.getElementById("screamerSound");
+
             this.screamerVisible = true;
 
+            if (screamerSound) {
+              screamerSound.currentTime = 0;
+              screamerSound.play().catch(err => console.error("Erreur audio screamer :", err));
+            }
+
             setTimeout(() => {
+              if (screamerSound) {
+                screamerSound.pause();
+                screamerSound.currentTime = 0;
+              }
+
               this.screamerVisible = false;
               this.panierOuvert = true;
-            }, 1200);
+            }, 3000);
           }, 2000);
         },
 
@@ -1517,6 +1529,9 @@
 
   <audio id="waveSound" preload="auto">
     <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="screamerSound" preload="auto">
+    <source src="img/fleurs/horror.mp3" type="audio/mpeg">
   </audio>
 </body>
 
