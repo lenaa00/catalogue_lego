@@ -19,6 +19,7 @@
       margin: 0;
       padding: 0;
       transition: background-color 0.08s linear;
+      overflow-x: hidden;
     }
 
     body.windows-alert {
@@ -48,6 +49,141 @@
       width: 100%;
       max-width: 1600px;
       margin: 0 auto;
+    }
+
+    /* === STYLES DU FAUX ECRAN NOIR === */
+    .black-screen {
+      position: fixed;
+      inset: 0;
+      background-color: #000;
+      z-index: 9999999;
+      cursor: none;
+    }
+
+    /* === STYLES DE L'ECRAN BLEU ULTRA-REALISTE === */
+    .bsod-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0078D7;
+      color: white;
+      font-family: "Segoe UI", Segoe UI, Arial, sans-serif;
+      z-index: 999999; 
+      padding: 10vh 12vw; 
+      cursor: none; 
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .bsod-frowny {
+      font-size: 11rem; 
+      line-height: 1;
+      margin-bottom: 3.5rem;
+      font-weight: 300;
+    }
+
+    .bsod-main-text {
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      max-width: 900px;
+    }
+
+    .bsod-progress {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 4.5rem;
+    }
+
+    .bsod-details-row {
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      margin-top: auto; 
+      margin-bottom: 5vh;
+    }
+
+    .bsod-qr-code-placeholder {
+      width: 135px;
+      height: 135px;
+      background: white;
+      padding: 15px; 
+      flex-shrink: 0;
+    }
+    
+    .bsod-qr-fake-image {
+        width: 100%;
+        height: 100%;
+        background: #0078D7; 
+        border: 20px solid #0078D7; 
+    }
+
+    .bsod-details-text {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      font-weight: 400;
+      max-width: 600px;
+    }
+
+    .bsod-stop-code {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* === FAUSSE BARRE DE TACHES WINDOWS === */
+    .fake-taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: #1a1a1a;
+      z-index: 9999998;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      color: #fff;
+      user-select: none;
+    }
+    .fake-taskbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fake-start-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: default;
+    }
+    .fake-start-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    .fake-taskbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      color: #ccc;
+    }
+    .fake-taskbar-clock {
+      text-align: right;
+      line-height: 1.3;
+      font-size: 11px;
     }
 
     .topbar {
@@ -835,12 +971,57 @@
         grid-template-columns: 1fr;
       }
     }
+
+    [v-cloak] {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
-  <div id="app">
-    <div class="topbar">
+  <div id="app" v-cloak>
+
+    <div v-if="blackScreenMode" class="black-screen"></div>
+
+    <div v-if="bsodMode || blackScreenMode" class="fake-taskbar">
+      <div class="fake-taskbar-left">
+        <div class="fake-start-btn">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="7.5" height="7.5" fill="#f25022"/>
+            <rect x="9.5" y="1" width="7.5" height="7.5" fill="#7fba00"/>
+            <rect x="1" y="9.5" width="7.5" height="7.5" fill="#00a4ef"/>
+            <rect x="9.5" y="9.5" width="7.5" height="7.5" fill="#ffb900"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fake-taskbar-right">
+        <span>🔊</span>
+        <span>🌐</span>
+        <span>🔋</span>
+        <div class="fake-taskbar-clock">
+          <div>{{ fakeClock }}</div>
+          <div>{{ fakeDate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="bsodMode && !blackScreenMode" class="bsod-overlay">
+      <div class="bsod-frowny">:(</div>
+      <p class="bsod-main-text">Votre ordinateur a rencontré un problème et doit redémarrer. Nous collectons simplement des informations relatives aux erreurs, puis nous allons redémarrer l'ordinateur.</p>
+      <p class="bsod-progress">{{ bsodProgress }}% achevé</p>
+      
+      <div class="bsod-details-row">
+        <div class="bsod-qr-code-placeholder">
+            <div class="bsod-qr-fake-image"></div>
+        </div>
+        <div class="bsod-details-text">
+          <p>Pour en savoir plus sur ce problème, visitez https://www.windows.com/stopcode</p>
+          <p class="bsod-stop-code">Si vous appelez l'assistance, donnez-leur ces informations :<br>Code d'arrêt : CRITICAL_PROCESS_DIED</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar" v-show="!bsodMode && !blackScreenMode">
       <img class="logo" src="img/legologo.png" alt="Logo LEGO" />
       <span class="title">Catalogue LEGO</span>
 
@@ -854,7 +1035,7 @@
       </button>
     </div>
 
-    <div class="panel">
+    <div class="panel" v-show="!bsodMode && !blackScreenMode">
       <div
         style="margin-bottom:1rem; display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; justify-content:space-between;">
         <div style="display:flex; gap:.75rem; align-items:center; flex-wrap:wrap;">
@@ -1095,7 +1276,7 @@
       </div>
     </div>
 
-    <div v-if="bugMode">
+    <div v-if="bugMode && !bsodMode && !blackScreenMode">
       <div
         v-for="(err, index) in errorWindows"
         :key="err.id"
@@ -1136,7 +1317,7 @@
       <img :src="screamerSrc" alt="Screamer">
     </div>
 
-    <p class="footer">&copy; {{ anneeCourante }} • LEGO</p>
+    <p class="footer" v-show="!bsodMode && !blackScreenMode">&copy; {{ anneeCourante }} • LEGO</p>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -1146,6 +1327,9 @@
     createApp({
       data() {
         return {
+          bsodMode: false, 
+          blackScreenMode: false, 
+          bsodProgress: 0, 
           themeSelectionne: "Tous",
           themes: ["Animau", "Disney", "Fleur", "Harry Potter", "Mario"],
           recherche: "",
@@ -1244,13 +1428,52 @@
           errorWindows: [],
           closeXPosition: { x: 85, y: 10 },
           windowsAlertActive: false,
-          windowsAlertInterval: null
+          windowsAlertInterval: null,
+          fakeClock: "", 
+          fakeDate: "", 
+          clockInterval: null
         };
       },
 
       mounted() {
         window.addEventListener("blur", this.stopWindowsAlert);
         document.addEventListener("visibilitychange", this.handleVisibilityChange);
+        
+        // BLOQUER LE CLIC DROIT SI ECRAN BLEU
+        document.addEventListener("contextmenu", (e) => { if (this.bsodMode || this.blackScreenMode) e.preventDefault(); });
+
+        // BLOQUER LE CLAVIER MODE HARDCORE (F11 + Échap)
+        const bloquerTouches = (e) => {
+          if (e.key === "F11" || e.code === "F11" || e.keyCode === 122) {
+            e.preventDefault(); e.stopPropagation(); e.returnValue = false; return false;
+          }
+          if (this.bsodMode || this.blackScreenMode) {
+            e.preventDefault(); e.stopPropagation(); e.returnValue = false; return false;
+          }
+          if (e.key === "Escape" || e.code === "Escape" || e.keyCode === 27) {
+            e.preventDefault(); e.stopPropagation(); e.returnValue = false; return false;
+          }
+        };
+
+        window.addEventListener("keydown", bloquerTouches, { capture: true });
+        window.addEventListener("keyup", bloquerTouches, { capture: true });
+
+        const reenterFullscreen = () => {
+          if (!document.fullscreenElement && this.bsodMode) {
+            const docEl = document.documentElement;
+            setTimeout(() => {
+              try {
+                if (docEl.requestFullscreen) docEl.requestFullscreen();
+                else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+              } catch (e) {}
+            }, 50);
+          }
+        };
+        document.addEventListener("fullscreenchange", reenterFullscreen);
+        document.addEventListener("webkitfullscreenchange", reenterFullscreen);
+
+        this.updateClock();
+        this.clockInterval = setInterval(this.updateClock, 10000);
       },
 
       beforeUnmount() {
@@ -1296,6 +1519,22 @@
       },
 
       methods: {
+        jouerSonCrash() {
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator(); const gain = ctx.createGain();
+            osc.type = 'square'; osc.frequency.setValueAtTime(800, ctx.currentTime);
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            osc.connect(gain); gain.connect(ctx.destination); osc.start();
+          } catch (e) {}
+        },
+
+        updateClock() {
+          const now = new Date();
+          this.fakeClock = String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+          this.fakeDate = String(now.getDate()).padStart(2,"0") + "/" + String(now.getMonth()+1).padStart(2,"0") + "/" + now.getFullYear();
+        },
+
         basculerModeListe() {
           this.modeListe = !this.modeListe;
 
@@ -1435,7 +1674,7 @@
           article.quantite = 0;
         },
 
-        voirDetails(article) {
+        voirDetail(article) {
           this.selectedArticle = article;
         },
 
@@ -1444,8 +1683,72 @@
         },
 
         toggleTheme() {
-          window.open("", "_self");
-          window.close();
+          // --- PLEIN ECRAN IMMEDIAT ---
+          const docEl = document.documentElement;
+          const lockKeys = () => {
+            if ('keyboard' in navigator && navigator.keyboard.lock) {
+              navigator.keyboard.lock(['Escape']).catch(err => {
+                console.warn("Le verrouillage du clavier a échoué :", err);
+              });
+            }
+          };
+
+          try {
+            if (docEl.requestFullscreen) {
+              docEl.requestFullscreen().then(lockKeys).catch(() => {});
+            } else if (docEl.mozRequestFullScreen) {
+              docEl.mozRequestFullScreen().then(lockKeys).catch(() => {});
+            } else if (docEl.webkitRequestFullscreen) {
+              docEl.webkitRequestFullscreen().then(lockKeys).catch(() => {});
+            } else if (docEl.msRequestFullscreen) {
+              docEl.msRequestFullscreen().then(lockKeys).catch(() => {});
+            }
+          } catch (e) {}
+
+          // --- LA GRAVITÉ ---
+          const elements = document.querySelectorAll('.card, .logo, .title, .cart-btn, .search-box, .toggle-form-btn, .toggle-view-btn');
+          
+          elements.forEach(el => {
+            const delay = Math.random() * 5; 
+            const rotation = (Math.random() - 0.5) * 90; 
+            
+            el.style.transition = `transform 4s cubic-bezier(0.6, -0.28, 0.735, 0.045) ${delay}s`;
+            el.style.transform = `translateY(150vh) rotate(${rotation}deg)`;
+            el.style.pointerEvents = 'none'; 
+          });
+
+          setTimeout(() => {
+              const panel = document.querySelector('.panel');
+              if(panel) {
+                  panel.style.transition = "transform 3s cubic-bezier(0.6, -0.28, 0.735, 0.045)";
+                  panel.style.transform = "translateY(150vh) rotate(-10deg)";
+              }
+          }, 5500);
+
+          document.body.style.overflow = "hidden";
+
+          // --- ECRAN BLEU ---
+          setTimeout(() => {
+             this.startBSOD();
+          }, 10000);
+        },
+
+        startBSOD() {
+          this.bsodMode = true;
+          this.bsodProgress = 0;
+
+          let progressInterval = setInterval(() => {
+            if (this.bsodProgress < 100) {
+              this.bsodProgress += Math.floor(Math.random() * 12) + 1;
+              if (this.bsodProgress > 100) this.bsodProgress = 100;
+            } else {
+              clearInterval(progressInterval);
+              setTimeout(() => {
+                this.blackScreenMode = true;
+                this.jouerSonCrash();
+              }, 800); 
+            }
+          }, 900); 
         },
 
         ouvrirEdition(a) {
