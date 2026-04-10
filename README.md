@@ -170,37 +170,30 @@ Chaque produit contient :
 
 ---
 
-## ⚠️ Problèmes rencontrés
+## ⚠️ Anomalies et Comportements Inattendus
+Plusieurs composants du catalogue présentent des instabilités techniques. Une révision globale des scripts de gestion est nécessaire.
 
-Certaines fonctionnalités présentent des comportements inattendus nécessitant une analyse.
+### 🛠 Dysfonctionnements de l'Interface (UI)
+Contrôles de luminosité : L'interaction avec l'icône de mode jour provoque une interruption critique du service.
 
+Fiches produits : Défaut d'affichage (champs manquants).
 
-###  Barre de recherche
+Mode Liste : Instabilité visuelle majeure lors de la permutation du mode d'affichage.
 
-Lors de la saisie dans la barre de recherche, l’interface devient instable. L’écran présente des mouvements anormaux accompagnés d’un déclenchement sonore non attendu.
+Assets graphiques : Problème d'indexation sur certains visuels. 
 
+### Système de Recherche et Tri
+Filtres thématiques : Les filtres "Animaux" et "Fleurs" ne retournent aucune donnée 
 
-###  Ajout au panier
+Indexation des prix : L'algorithme de tri décroissant rencontre une erreur d'exécution bloquante.
 
-L’ajout d’un article au panier entraîne l’apparition simultanée de nombreuses fenêtres d’erreur.
-La fermeture de ces fenêtres ne semble pas effective, celles-ci réapparaissant immédiatement.
-Certains éléments de fermeture sont difficilement accessibles ou non fonctionnels.
+###  Expérience Utilisateur et Panier
+Gestion du panier : Des anomalies sonores et visuelles non documentées surviennent lors de l'ajout d'articles.
 
+Composant "Détails" : Le déclencheur d'affichage détaillé ne parvient pas à charger le contenu.
 
-###  Modification d’un produit
-
-Lors de la modification d’un produit, un élément visuel inattendu apparaît et perturbe fortement l’interaction avec l’interface.
-
-
-###  Mode nuit
-
-L’activation du mode nuit entraîne l'ouverture d'une page de redémarrage rendant le clavier inutilisable et empêchant toute utilisation de cette fonctionnalité.
-
-
-###  Recherche de produits
-
-Certains produits ne sont pas correctement retournés selon la saisie utilisateur (ex : différence majuscule/minuscule), ce qui entraîne des résultats incomplets.
-
+###  Gestion du cycle de vie des produits
+Persistance visuelle : La suppression d'un produit ne semble pas libérer l'espace mémoire à l'écran.
 
 ---
 
@@ -210,7 +203,8 @@ Certains produits ne sont pas correctement retournés selon la saisie utilisateu
 * Correction des erreurs bloquantes
 * Amélioration de la recherche
 * Fiabilisation des interactions utilisateur
-* Optimisation globale des performances
+* Optimisation globale des performances*
+* Rendre le site dynamique 
 
 ---
 
